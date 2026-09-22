@@ -8,6 +8,8 @@ This is a static, browser-only application. The tracker is implemented in one HT
 
 The page loads Tailwind CSS, Chart.js, and the Chart.js date adapter from jsDelivr at runtime. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for attribution and license information.
 
+View the live site here: https://dansface.github.io/caffeine-tracker/
+
 ## Quick Start
 
 ### Prerequisites
