@@ -154,6 +154,10 @@
         <button id="privacyPolicyBtn" type="button" class="text-sm text-gray-400 hover:text-amber-300 underline underline-offset-2 transition cursor-pointer">
             Privacy Policy
         </button>
+        <span class="mx-2 text-gray-600">|</span>
+        <button id="termsBtn" type="button" class="text-sm text-gray-400 hover:text-amber-300 underline underline-offset-2 transition cursor-pointer">
+            Terms &amp; Disclaimer
+        </button>
     </footer>
 
     <div id="privacyModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 p-4">
@@ -170,13 +174,13 @@
 
             <div class="mt-5 space-y-4 text-sm leading-6 text-gray-300">
                 <p>
-                    This caffeine tracker does not send your data to any server. All intake history, body weight settings, bedtime preferences, and metabolism options are stored locally in your browser using browser storage technologies such as localStorage.
+                    This caffeine tracker does not transmit your entered tracker data to an application server. Intake history, body weight settings, bedtime preferences, and metabolism options are stored locally in your browser using browser storage technologies such as localStorage.
                 </p>
                 <p>
-                    That means your information stays on the device you’re using unless you clear browser data or storage manually. We do not collect, transmit, or retain this information server-side.
+                    The page loads Tailwind CSS, Chart.js, and the Chart.js date adapter from the jsDelivr content delivery network. Those requests are separate from your tracker data and may be subject to the providers’ and GitHub Pages’ own privacy policies.
                 </p>
                 <p>
-                    If you use a different browser or device, your saved data will not automatically sync across those environments.
+                    Your tracker information stays on the device you’re using unless you clear browser data or storage manually. We do not collect, transmit, or retain your tracker information server-side. If you use a different browser or device, your saved data will not automatically sync.
                 </p>
             </div>
 
@@ -185,6 +189,38 @@
                     Delete My Data
                 </button>
                 <button id="dismissPrivacyModal" type="button" class="rounded-xl bg-amber-500 px-4 py-2 text-sm font-black text-gray-900 hover:bg-amber-400 cursor-pointer">
+                    Back to tracker
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="termsModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 p-4">
+        <div class="w-full max-w-lg rounded-2xl border border-gray-700 bg-gray-800 p-6 shadow-2xl">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.18em] text-amber-400">Terms &amp; Disclaimer</p>
+                    <h2 class="mt-2 text-2xl font-black text-white">Please use this responsibly</h2>
+                </div>
+                <button id="closeTermsModal" type="button" class="rounded-lg border border-gray-600 bg-gray-700 px-2 py-1 text-lg text-gray-200 hover:bg-gray-600 cursor-pointer" aria-label="Close terms and disclaimer">
+                    ×
+                </button>
+            </div>
+
+            <div class="mt-5 space-y-4 text-sm leading-6 text-gray-300">
+                <p>
+                    This tracker is provided for general informational and educational purposes only. Its calculations are estimates based on the information entered and are not guaranteed to be accurate for any individual.
+                </p>
+                <p>
+                    <strong class="text-white">Health and medical disclaimer:</strong> This tool is not medical advice, medical diagnosis, or a medical device. Do not use it to make decisions about your health, medication, caffeine intake, pregnancy, sleep, or treatment. Consult a qualified healthcare professional for personal guidance, especially if you have a medical condition or take medication.
+                </p>
+                <p>
+                    You use this tracker at your own risk. The software is provided "as is" without warranties, and the project contributors are not liable for decisions or outcomes based on its use. The project may be changed, suspended, or discontinued at any time.
+                </p>
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <button id="dismissTermsModal" type="button" class="rounded-xl bg-amber-500 px-4 py-2 text-sm font-black text-gray-900 hover:bg-amber-400 cursor-pointer">
                     Back to tracker
                 </button>
             </div>
@@ -203,6 +239,10 @@
         const closePrivacyModalBtn = document.getElementById('closePrivacyModal');
         const dismissPrivacyModalBtn = document.getElementById('dismissPrivacyModal');
         const deleteMyDataBtn = document.getElementById('deleteMyDataBtn');
+        const termsModal = document.getElementById('termsModal');
+        const termsBtn = document.getElementById('termsBtn');
+        const closeTermsModalBtn = document.getElementById('closeTermsModal');
+        const dismissTermsModalBtn = document.getElementById('dismissTermsModal');
 
         function openPrivacyModal() {
             privacyModal.classList.remove('hidden');
@@ -212,6 +252,16 @@
         function closePrivacyModal() {
             privacyModal.classList.add('hidden');
             privacyModal.classList.remove('flex');
+        }
+
+        function openTermsModal() {
+            termsModal.classList.remove('hidden');
+            termsModal.classList.add('flex');
+        }
+
+        function closeTermsModal() {
+            termsModal.classList.add('hidden');
+            termsModal.classList.remove('flex');
         }
 
         function deleteMyData() {
@@ -249,12 +299,21 @@
             closePrivacyModalBtn.addEventListener('click', closePrivacyModal);
             dismissPrivacyModalBtn.addEventListener('click', closePrivacyModal);
             deleteMyDataBtn.addEventListener('click', deleteMyData);
+            termsBtn.addEventListener('click', openTermsModal);
+            closeTermsModalBtn.addEventListener('click', closeTermsModal);
+            dismissTermsModalBtn.addEventListener('click', closeTermsModal);
             privacyModal.addEventListener('click', (event) => {
                 if (event.target === privacyModal) closePrivacyModal();
+            });
+            termsModal.addEventListener('click', (event) => {
+                if (event.target === termsModal) closeTermsModal();
             });
             document.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape' && !privacyModal.classList.contains('hidden')) {
                     closePrivacyModal();
+                }
+                if (event.key === 'Escape' && !termsModal.classList.contains('hidden')) {
+                    closeTermsModal();
                 }
             });
 
